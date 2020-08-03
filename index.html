@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pin Generator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="pin-generator half-width">
+                    <input id="display" class="form-control" type="text">
+                    <button id="pinButton" class="generate-btn">Generate Pin</button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="input-section half-width">
+                    <input id="secondDisplay" class="form-control" type="text">
+                    <div class="numbers">
+                        <div class="calc-body">
+                            <div class="calc-button-row">
+                              <div class="button" onclick="dis('7')">7</div>
+                              <div class="button" onclick="dis('8')">8</div>
+                              <div class="button" onclick="dis('9')">9</div>
+                            </div>
+                            <div class="calc-button-row">
+                              <div class="button" onclick="dis('4')">4</div>
+                              <div class="button" onclick="dis('5')">5</div>
+                              <div class="button" onclick="dis('6')">6</div>
+                            </div>
+                            <div class="calc-button-row">
+                              <div class="button" onclick="dis('1')">1</div>
+                              <div class="button" onclick="dis('2')">2</div>
+                              <div class="button" onclick="dis('3')">3</div>
+                            </div>
+                            <div class="calc-button-row">
+                                <div class="button"onclick="backspace()"><</div>
+                                <div class="button" onclick="dis('0')">0</div>
+                                <div class="button" onclick="clr('c')">C</div>
+                            </div>
+                            <div>
+                                <button type="submit" id="submitBtn" class="submit-btn">Submit</button>
+                                <p class="action-left">3 try left</p>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="notify-section">
+            <p id="notify1" class="notify">❌ Pin Didn't Match, Please try again</p>
+            <p id="notify2" class="notify">✅ Pin Matched... Secret door is opening for you</p>
+        </div>
+    </div>
+
+
+<script>
+// four digit random number produced
+document.getElementById("pinButton").addEventListener("click", function()
+{document.getElementById("display").value = 
+Math.floor(Math.random()*(9999-1000+1))+1000; 
+})
+
+// for button 
+// display value
+function dis(val) 
+         { 
+             document.getElementById("secondDisplay").value+=val;
+         }
+// clear value from display
+function clr() 
+         { 
+             document.getElementById("secondDisplay").value = "" 
+         } 
+// backspace
+function backspace()
+        {   var presentValue = document.getElementById("secondDisplay").value;
+            document.getElementById("secondDisplay").value = presentValue.substr(0,presentValue.length-1);
+        }
+
+// submit button
+
+document.getElementById("submitBtn").addEventListener('click', function(){
+ 
+            var generatedPassword = document.getElementById("display").value;
+            var givenPassword = document.getElementById("secondDisplay").value;
+                if (givenPassword == ""){
+                    alert("please enter your OTP");
+                }
+
+                if (generatedPassword == givenPassword){
+                    document.getElementById('notify2').style.display = 'block';
+                }
+
+                if (generatedPassword != givenPassword){
+                    document.getElementById('notify1').style.display = 'block';
+                }
+
+            })
+
+
+</script>
+
+
+
+</body>
+</html>
